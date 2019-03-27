@@ -1,15 +1,13 @@
 package id.objectmethod.relazioni.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="figlio")
@@ -24,11 +22,10 @@ public class Figlio {
 	
 	@Column(name="cognome")
 	private String cognome;
-
-	@ManyToMany
-	@JoinTable(name = "padri_figli", joinColumns = @JoinColumn(name = "figlio_id", referencedColumnName = "id")
-	, inverseJoinColumns = @JoinColumn(name = "padre_id", referencedColumnName = "id"))
-	private List<Padre> padri;
+	
+	@JsonIgnore
+	@ManyToOne
+	private Padre padre;
 
 	public Long getId() {
 		return id;
@@ -54,15 +51,12 @@ public class Figlio {
 		this.cognome = cognome;
 	}
 
-	public List<Padre> getPadri() {
-		return padri;
+	public Padre getPadre() {
+		return padre;
 	}
 
-	public void setPadri(List<Padre> padri) {
-		this.padri = padri;
+	public void setPadre(Padre padre) {
+		this.padre = padre;
 	}
-
-	
-	
 	
 }

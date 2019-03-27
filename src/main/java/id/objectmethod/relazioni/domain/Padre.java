@@ -2,8 +2,10 @@ package id.objectmethod.relazioni.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,10 +28,17 @@ public class Padre {
 	@Column(name="cognome")
 	private String cognome;
 	
-	@ManyToMany
-	@JoinTable(name = "padri_figli", joinColumns = @JoinColumn(name = "padre_id", referencedColumnName = "id")
-	, inverseJoinColumns = @JoinColumn(name = "figlio_id", referencedColumnName = "id"))
+	@Column(name="eta")
+	private Integer eta;
+	
+	@JoinColumn(name="padre_id")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Figlio> figli;
+	
+	@ManyToMany
+	@JoinTable(name = "padri_auto", joinColumns = @JoinColumn(name = "padre_id", referencedColumnName = "id")
+	, inverseJoinColumns = @JoinColumn(name = "auto_id", referencedColumnName = "id"))
+	private List<Automobile> automobili;
 
 	public Long getId() {
 		return id;
@@ -54,6 +63,14 @@ public class Padre {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
+	
+	public Integer getEta() {
+		return eta;
+	}
+
+	public void setEta(Integer eta) {
+		this.eta = eta;
+	}
 
 	public List<Figlio> getFigli() {
 		return figli;
@@ -62,7 +79,13 @@ public class Padre {
 	public void setFigli(List<Figlio> figli) {
 		this.figli = figli;
 	}
-	
-	
+
+	public List<Automobile> getAutomobili() {
+		return automobili;
+	}
+
+	public void setAutomobili(List<Automobile> automobili) {
+		this.automobili = automobili;
+	}
 
 }
