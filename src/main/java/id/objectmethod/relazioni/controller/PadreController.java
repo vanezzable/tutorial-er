@@ -21,7 +21,7 @@ public class PadreController {
 	private PadreRepository pRepo;
 	
 	@Autowired
-	private FiglioRepository fRepo;
+	private FiglioRepository fRepo; //HELL
 	
 	
 	@GetMapping("/{id}/find")
