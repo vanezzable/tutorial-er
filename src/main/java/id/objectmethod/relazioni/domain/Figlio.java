@@ -23,7 +23,7 @@ public class Figlio {
 	@Column(name="cognome")
 	private String cognome;
 	
-	@JsonIgnore
+	@JsonIgnore //Questa proprieta viene ignorata quando inviamo il JSON al frontend
 	@ManyToOne
 	private Padre padre;
 
