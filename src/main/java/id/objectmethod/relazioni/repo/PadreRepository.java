@@ -8,7 +8,4 @@ import id.objectmethod.relazioni.domain.Padre;
 @Repository
 public interface PadreRepository extends JpaRepository<Padre, Long>{
 	
-//	@Query("select p from Padre p join Figlio f on p.id = f.padre.id where f.id = ?1") //notare bene la join soprattutto su figlio, dove usiamo f.padre.id
-//	public Padre getPadreByIdFiglio(Long idFiglio);
-	
 }
