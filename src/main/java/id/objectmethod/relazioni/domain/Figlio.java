@@ -10,20 +10,20 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="figlio")
+@Table(name = "figlio")
 public class Figlio {
 
 	@GeneratedValue
 	@Id
 	private Long id;
-	
-	@Column(name="nome")
+
+	@Column(name = "nome")
 	private String nome;
-	
-	@Column(name="cognome")
+
+	@Column(name = "cognome")
 	private String cognome;
-	
-	@JsonIgnore //Questa proprieta viene ignorata quando inviamo il JSON al frontend
+
+	@JsonIgnore // Questa proprieta viene ignorata quando inviamo il JSON al frontend
 	@ManyToOne
 	private Padre padre;
 
@@ -58,5 +58,5 @@ public class Figlio {
 	public void setPadre(Padre padre) {
 		this.padre = padre;
 	}
-	
+
 }

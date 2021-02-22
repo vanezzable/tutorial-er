@@ -19,24 +19,23 @@ public class PadreController {
 
 	@Autowired
 	private PadreRepository pRepo;
-	
+
 	@Autowired
 	private FiglioRepository fRepo;
-	
-	
+
 	@GetMapping("/{id}/find")
 	public Padre findById(@PathVariable("id") Long id) {
 		Padre p = pRepo.findOne(id);
 		return p;
 	}
-	
+
 	@PostMapping("/save")
 	public Padre savePadre(@RequestBody Padre padre) {
-		for(Figlio f: padre.getFigli()) {
+		for (Figlio f : padre.getFigli()) {
 			f.setPadre(padre);
 		}
 		Padre p = pRepo.save(padre);
 		return p;
 	}
-	
+
 }
