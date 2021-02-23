@@ -1,5 +1,7 @@
 package id.objectmethod.relazioni.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import id.objectmethod.relazioni.domain.Figlio;
 import id.objectmethod.relazioni.domain.Padre;
-import id.objectmethod.relazioni.repo.FiglioRepository;
 import id.objectmethod.relazioni.repo.PadreRepository;
 
 @RestController
@@ -20,12 +21,19 @@ public class PadreController {
 	@Autowired
 	private PadreRepository pRepo;
 
-	@Autowired
-	private FiglioRepository fRepo;
-
 	@GetMapping("/{id}/find")
 	public Padre findById(@PathVariable("id") Long id) {
-		Padre p = pRepo.findOne(id);
+		Padre p = pRepo.findById(id).get();
+
+		List<Figlio> figli = p.getFigli();
+		System.out.println("Ha " + figli.size() + " figli");
+
+		return p;
+	}
+
+	@GetMapping("/birichini")
+	public List<Padre> findBirichini() {
+		List<Padre> p = pRepo.findWithAmanteOverEighty();
 		return p;
 	}
 
