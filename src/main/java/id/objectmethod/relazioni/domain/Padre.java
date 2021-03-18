@@ -14,8 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "padre")
 public class Padre {
@@ -33,20 +31,22 @@ public class Padre {
 	@Column(name = "eta")
 	private Integer eta;
 
-	@JoinColumn(name = "padre_id") // indichiamo che nella tabella figlio la colonna padre_id fa riferimento all'id
-									// di questa entita
+	// indichiamo che nella tabella figlio la colonna padre_id fa riferimento all'id
+	// di questa entita
+	@JoinColumn(name = "padre_id")
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) // OneToMany è il tipo di relazione
 	private List<Figlio> figli;
+
 	// Fetch indica quando vengono estratti da DB le entita collegate
 	// LAZY le estrae solo quando chiamiamo il relativo metodo GET
 	// EAGER le estrae subito nel momento in cui estraiamo il padre
 	// Cascade indica se un operazione di modifica/eliminazione fatta nel padre si
 	// deve ripercuotere anche sulle entita collegate
 
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "birichinate", joinColumns = @JoinColumn(name = "padre_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "amante_id", referencedColumnName = "id"))
 	private List<Amante> amanti;
+
 	// padri_auto tabella di correlazione tra padre e automobile, nelle joinColumns
 	// indichiamo che padre_id (della tabella padri_auto) fa riferimo a id (della
 	// tabella padre)

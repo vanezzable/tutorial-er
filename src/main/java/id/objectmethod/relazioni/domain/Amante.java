@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "amante")
 public class Amante {
@@ -28,6 +30,7 @@ public class Amante {
 	@Column(name = "eta")
 	private Integer eta;
 
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "birichinate", joinColumns = @JoinColumn(name = "amante_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "padre_id", referencedColumnName = "id"))
 	private List<Padre> padri;
