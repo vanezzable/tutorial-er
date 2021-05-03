@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.objectmethod.relazioni.domain.Amante;
-import id.objectmethod.relazioni.repo.AmanteRepository;
+import id.objectmethod.relazioni.service.AmanteService;
 
 @RestController
 @RequestMapping("/api/amanti")
 public class AmanteController {
 
 	@Autowired
-	private AmanteRepository aRepo;
+	private AmanteService amanteService;
 
 	@GetMapping("/{id}/find")
 	public Amante findById(@PathVariable("id") Long id) {
-		Amante p = aRepo.findById(id).get();
+		Amante p = amanteService.findById(id);
 		return p;
 	}
 

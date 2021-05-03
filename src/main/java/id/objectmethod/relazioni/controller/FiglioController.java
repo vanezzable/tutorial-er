@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import id.objectmethod.relazioni.domain.Figlio;
-import id.objectmethod.relazioni.repo.FiglioRepository;
+import id.objectmethod.relazioni.service.FiglioService;
 
 @RestController
 @RequestMapping("/api/figlio")
 public class FiglioController {
 
 	@Autowired
-	private FiglioRepository fRepo;
+	private FiglioService figlioService;
 
 	@GetMapping("/{id}/find")
 	public Figlio findById(@PathVariable("id") Long id) {
-		Figlio p = fRepo.findById(id).get();
+		Figlio p = figlioService.findById(id);
 		return p;
 	}
 

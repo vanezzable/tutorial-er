@@ -10,39 +10,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import id.objectmethod.relazioni.domain.Figlio;
 import id.objectmethod.relazioni.domain.Padre;
-import id.objectmethod.relazioni.repo.PadreRepository;
+import id.objectmethod.relazioni.service.PadreService;
 
 @RestController
 @RequestMapping("/api/padre")
 public class PadreController {
 
 	@Autowired
-	private PadreRepository pRepo;
+	private PadreService padreService;
 
 	@GetMapping("/{id}/find")
 	public Padre findById(@PathVariable("id") Long id) {
-		Padre p = pRepo.findById(id).get();
-
-		List<Figlio> figli = p.getFigli();
-		System.out.println("Ha " + figli.size() + " figli");
-
+		Padre p = padreService.findById(id);
 		return p;
 	}
 
 	@GetMapping("/birichini")
 	public List<Padre> findBirichini() {
-		List<Padre> p = pRepo.findWithAmanteOverEighty();
+		List<Padre> p = padreService.findBirichini();
 		return p;
 	}
 
 	@PostMapping("/save")
 	public Padre savePadre(@RequestBody Padre padre) {
-		for (Figlio f : padre.getFigli()) {
-			f.setPadre(padre);
-		}
-		Padre p = pRepo.save(padre);
+		Padre p = padreService.savePadre(padre);
 		return p;
 	}
 
